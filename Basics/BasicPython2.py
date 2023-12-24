@@ -1,6 +1,8 @@
 # Range statements
 # Loops -> for each, while loop
 # Conditional statements -> if else, if elif
+# Enumeration function
+# Format function
 
 
 def range_in_python():
@@ -44,9 +46,20 @@ def while_loop():
     print()
 
 
+# Enumeration function in python
+# String format function in python
+def for_loop_with_index():
+    lst = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    template = "Number is {} at {} index"
+    for index, num in enumerate(lst):
+        print(template.format(num, index))
+
+
 if __name__ == "__main__":
     print("script started")
 
     # range_in_python()
     # condition_statements()
-    while_loop()
+    # while_loop()
+
+    for_loop_with_index()
