@@ -53,8 +53,74 @@ def buildArray(self, nums: List[int]) -> List[int]:
     return [nums[nums[index]] for index in range(len(nums))]
 
 
+
+'''
+Input: nums = [1,15,6,3]
+Output: 9
+Explanation: 
+The element sum of nums is 1 + 15 + 6 + 3 = 25.
+The digit sum of nums is 1 + 1 + 5 + 6 + 3 = 16.
+The absolute difference between the element sum and digit sum is |25 - 16| = 9.
+'''
+def differenceOfSum( nums: List[int]) -> int:
+    sum1 = 0
+    sum2 = 0
+    for num in nums:
+        sum1 += num
+        for digit in str(num):
+            sum2 += int(digit)
+    print(f"{sum1} | {sum2}")
+    return abs(sum1 - sum2)
+
+
+'''
+Counting words with given prefix
+Input: words = ["pay","attention","practice","attend"], pref = "at"
+Output: 2
+Explanation: The 2 strings that contain "at" as a prefix are: "attention" and "attend".
+'''
+def prefixCount(self, words: List[str], pref: str) -> int:
+    counter = 0
+    for word in words:
+        if word.startswith(pref):
+            counter += 1
+    return counter
+    # list comprehension
+    # return sum([ word.startswith(pref) for word in words])
+
+
+'''
+2500. Delete Greatest Value in Each Row
+You are given an m x n matrix grid consisting of positive integers.
+Perform the following operation until grid becomes empty:
+Delete the element with the greatest value from each row. If multiple such elements exist, delete any of them.
+Add the maximum of deleted elements to the answer.
+Note that the number of columns decreases by one after each operation.
+
+Return the answer after performing the operations described above.
+'''
+def deleteGreatestValue(self, grid: List[List[int]]) -> int:
+    for row in grid:
+        row.sort()
+
+    result = 0
+    col = 0
+    while col < len(grid[0]):
+        max_element = 0
+        for index in range(len(grid)):
+            max_element = max(max_element, grid[index][col])
+        result += max_element
+        col += 1
+    return result
+
+
+
 if __name__ == '__main__':
     # findWordsContaining()
 
     nums = [1, 2, 3, 4, 5]
-    getConcatenation(nums)
+    # getConcatenation(nums)
+
+    nums = [1,15,6,3]
+    print(f"Result : {differenceOfSum(nums)}");
+
