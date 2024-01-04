@@ -115,12 +115,97 @@ def deleteGreatestValue(self, grid: List[List[int]]) -> int:
 
 
 
+'''
+2129. Capitalize the Title
+You are given a string title consisting of one or more words separated by a single space, where each word consists of English letters. Capitalize the string by changing the capitalization of each word such that:
+
+If the length of the word is 1 or 2 letters, change all letters to lowercase.
+Otherwise, change the first letter to uppercase and the remaining letters to lowercase.
+Return the capitalized title.
+
+Example 1:
+Input: title = "capiTalIze tHe titLe"
+Output: "Capitalize The Title"
+Explanation:
+Since all the words have a length of at least 3, the first letter of each word is uppercase, and the remaining letters are lowercase.
+'''
+def capitalizeTitle(title: str) -> str:
+    result = []
+    for word in title.split(" "):
+        if len(word) <= 2:
+            result.append(word.lower())
+        else:
+            word = word.lower()
+            char1 = word[0].upper()
+            remaining = word[1:]
+            result.append(char1 + remaining)
+
+    sentence = ""
+    for word in result:
+        sentence += word
+        sentence += " "
+    # don't consider last character which is extra space
+    return sentence[:-1]
+
+# Optimal Solution
+def capitalizeTitle(title: str) -> str:
+    words = title.split()
+    for index, word in enumerate(words):
+        if len(word) <= 2:
+            words[index] = word.lower()
+        else:
+            words[index] = word[0].upper() + word[1:].lower()
+    space = ' '
+    return space.join(words)
+
+
+'''
+2399. Check Distances Between Same Letters
+
+You are given a 0-indexed string s consisting of only lowercase English letters, where each letter in s appears exactly twice. You are also given a 0-indexed integer array distance of length 26.
+Each letter in the alphabet is numbered from 0 to 25 (i.e. 'a' -> 0, 'b' -> 1, 'c' -> 2, ... , 'z' -> 25).
+In a well-spaced string, the number of letters between the two occurrences of the ith letter is distance[i]. If the ith letter does not appear in s, then distance[i] can be ignored.
+Return true if s is a well-spaced string, otherwise return false.
+
+Example 1:
+Input: s = "abaccb", distance = [1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Output: true
+Explanation:
+- 'a' appears at indices 0 and 2 so it satisfies distance[0] = 1.
+- 'b' appears at indices 1 and 5 so it satisfies distance[1] = 3.
+- 'c' appears at indices 3 and 4 so it satisfies distance[2] = 0.
+Note that distance[3] = 5, but since 'd' does not appear in s, it can be ignored.
+Return true because s is a well-spaced string.
+
+Example 2:
+Input: s = "aa", distance = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Output: false
+Explanation:
+- 'a' appears at indices 0 and 1 so there are zero letters between them.
+Because distance[0] = 1, s is not a well-spaced string.
+'''
+def checkDistances(self, s: str, distance: List[int]) -> bool:
+    for index, char in enumerate(s):
+        '''
+        ord() function in Python is used to convert a single Unicode character into its integer representation, 
+        i.e., it takes a single string character as an input and returns an integer (representing the Unicode equivalent of the character) as an output.'''
+        char_index = ord(char) - ord('a')
+        next_dist = index + distance[char_index] + 1
+        if distance[char_index] != -1:
+            if next_dist >= len(s) or s[next_dist] != char:
+                return False
+            else:
+                distance[char_index] = -1
+    return True
+
+
 if __name__ == '__main__':
     # findWordsContaining()
 
-    nums = [1, 2, 3, 4, 5]
+    # nums = [1, 2, 3, 4, 5]
     # getConcatenation(nums)
 
-    nums = [1,15,6,3]
-    print(f"Result : {differenceOfSum(nums)}");
+    # nums = [1,15,6,3]
+    # print(f"Result : {differenceOfSum(nums)}");
 
+    print(f"Result : {capitalizeTitle('capiTalIze tHe titLe')}")
